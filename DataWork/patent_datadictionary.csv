@@ -1,0 +1,372 @@
+application,
+Data Element Name,Type
+id,varchar(36)
+patent_id,varchar(20)
+type,varchar(20)
+number,varchar(64)
+country,varchar(20)
+date,date
+series_code,varchar(20)
+assignee,
+Data Element Name,Type
+id,varchar(36)
+type,int(4)
+name_first,varchar(96)
+name_last,varchar(96)
+organization,varchar(256)
+botanic,
+Data Element Name,Type
+uuid,varchar(36)
+patent_id,varchar(20)
+latin_name,varchar(128)
+variety,varchar(128)
+brf_sum_text,
+Data Element Name,Type
+uuid,varchar(36)
+patent_id,varchar(20)
+text,mediumtext
+claim,
+Data Element Name,Type
+uuid,varchar(36)
+patent_id,varchar(20)
+text,mediumtext
+dependent,varchar(512)
+sequence,int(11)
+claim_number,varchar(10)
+exemplary,int(11)
+cpc_current,
+Data Element Name,Type
+uuid,varchar(36)
+patent_id,varchar(20)
+section_id,varchar(10)
+subsection_id,varchar(20)
+group_id,varchar(20)
+subgroup_id,varchar(20)
+category,varchar(36)
+sequence,int(11)
+cpc_group,
+Data Element Name,Type
+id,varchar(20)
+title,varchar(256)
+cpc_subgroup,
+Data Element Name,Type
+id,varchar(20)
+title,mediumtext
+cpc_subsection,
+Data Element Name,Type
+id,varchar(20)
+title,varchar(256)
+detail_desc_text,
+Data Element Name,Type
+patent_id,varchar(20)
+text,mediumtext
+length,int(10)
+draw_desc_text,
+Data Element Name,Type
+uuid,varchar(36)
+patent_id,varchar(20)
+text,mediumtext
+sequence,int(10)
+figures,
+Data Element Name,Type
+uuid,varchar(36)
+patent_id,varchar(20)
+num_figures,int(11)
+num_sheets,int(11)
+foreign_priority,
+Data Element Name,Type
+uuid,varchar(36)
+patent_id,varchar(20)
+sequence,int(11)
+kind,varchar(20)
+number,varchar(64)
+date,date
+country,varchar(20)
+country_transformed,varchar(10)
+foreigncitation,
+Data Element Name,Type
+uuid,varchar(36)
+patent_id,varchar(20)
+date,date
+number,varchar(64)
+country,varchar(10)
+category,varchar(20)
+sequence,int(11)
+government_interest,
+Data Element Name,Type
+patent_id,varchar(255)
+gi_statement,mediumtext
+government_organization,
+Data Element Name,Type
+organization_id,int(11)
+name,varchar(255)
+level_one,varchar(255)
+level_two,varchar(255)
+level_three,varchar(255)
+inventor,
+Data Element Name,Type
+id,varchar(80)
+name_first,varchar(72)
+name_last,varchar(72)
+male_flag,int(11)
+attribution_status,int(11)
+ipcr,
+Data Element Name,Type
+uuid,varchar(36)
+patent_id,varchar(20)
+classification_level,varchar(20)
+section,varchar(20)
+ipc_class,varchar(20)
+subclass,varchar(20)
+main_group,varchar(20)
+subgroup,varchar(20)
+symbol_position,varchar(20)
+classification_value,varchar(20)
+classification_status,varchar(20)
+classification_data_source,varchar(20)
+action_date,date
+ipc_version_indicator,date
+sequence,int(11)
+lawyer,
+Data Element Name,Type
+id,varchar(36)
+name_first,varchar(64)
+name_last,varchar(64)
+organization,varchar(64)
+country,varchar(10)
+location,
+Data Element Name,Type
+id,varchar(128)
+city,varchar(128)
+state,varchar(20)
+country,varchar(16)
+latitude,float
+longitude,float
+county,varchar(60)
+state_fips,varchar(2)
+county_fips,varchar(6)
+mainclass,
+Data Element Name,Type
+id,varchar(20)
+mainclass_current,
+Data Element Name,Type
+id,varchar(20)
+title,varchar(256)
+nber,
+Data Element Name,Type
+uuid,varchar(36)
+patent_id,varchar(20)
+category_id,varchar(20)
+subcategory_id,varchar(20)
+nber_category,
+Data Element Name,Type
+id,varchar(20)
+title,varchar(512)
+nber_subcategory,
+Data Element Name,Type
+id,varchar(20)
+title,varchar(512)
+non_inventor_applicant,
+Data Element Name,Type
+uuid,varchar(36)
+patent_id,varchar(20)
+rawlocation_id,varchar(36)
+name_first,varchar(30)
+name_last,varchar(40)
+organization,varchar(128)
+sequence,int(11)
+designation,varchar(20)
+applicant_type,varchar(30)
+otherreference,
+Data Element Name,Type
+uuid,varchar(36)
+patent_id,varchar(20)
+text,text
+sequence,int(11)
+pct_data,
+Data Element Name,Type
+uuid,varchar(36)
+patent_id,varchar(20)
+rel_id,varchar(20)
+date,date
+371_date,date
+country,varchar(20)
+kind,varchar(20)
+doc_type,varchar(20)
+102_date,date
+patent,
+Data Element Name,Type
+id,varchar(20)
+type,varchar(100)
+number,varchar(64)
+country,varchar(20)
+date,date
+abstract,mediumtext
+title,mediumtext
+kind,varchar(10)
+num_claims,int(11)
+filename,varchar(120)
+withdrawn,int(11)
+patent_assignee,
+Data Element Name,Type
+patent_id,varchar(20)
+assignee_id,varchar(36)
+location_id,varchar(128)
+patent_contractawardnumber,
+Data Element Name,Type
+patent_id,varchar(255)
+contract_award_number,varchar(255)
+patent_govintorg,
+Data Element Name,Type
+patent_id,varchar(255)
+organization_id,int(11)
+patent_inventor,
+Data Element Name,Type
+patent_id,varchar(20)
+inventor_id,varchar(36)
+location_id,varchar(128)
+patent_lawyer,
+Data Element Name,Type
+patent_id,varchar(20)
+lawyer_id,varchar(36)
+persistent_assignee_disambig,
+Data Element Name,Type
+rawassignee_id,varchar(36)
+disamb_assignee_id_xxxxxxxx,varchar(128)
+persistent_inventor_disambig,
+Data Element Name,Type
+rawinventor_id,varchar(36)
+disamb_inventor_id_xxxxxxxx,varchar(20)
+rawassignee,
+Data Element Name,Type
+uuid,varchar(36)
+patent_id,varchar(20)
+assignee_id,varchar(36)
+rawlocation_id,varchar(128)
+type,int(4)
+name_first,varchar(64)
+name_last,varchar(64)
+organization,varchar(256)
+sequence,int(11)
+rawexaminer,
+Data Element Name,Type
+uuid,varchar(36)
+patent_id,varchar(20)
+name_first,varchar(30)
+name_last,varchar(40)
+role,varchar(20)
+group,varchar(20)
+rawinventor,
+Data Element Name,Type
+uuid,varchar(36)
+patent_id,varchar(20)
+inventor_id,varchar(80)
+rawlocation_id,varchar(128)
+name_first,varchar(64)
+name_last,varchar(64)
+sequence,int(11)
+rule_47,boolean
+rawgender,
+Data Element Name,Type
+inventor_id,varchar(60)
+name_first,varchar(72)
+name_last,varchar(72)
+male,int(11)
+rawlawyer,
+Data Element Name,Type
+uuid,varchar(36)
+lawyer_id,varchar(36)
+patent_id,varchar(20)
+name_first,varchar(64)
+name_last,varchar(64)
+organization,varchar(64)
+country,varchar(10)
+sequence,int(11)
+rawlocation,
+Data Element Name,Type
+id,varchar(128)
+location_id,varchar(128)
+city,varchar(128)
+state,varchar(20)
+country,varchar(10)
+latlong,varchar(128)
+rel_app_text,
+Data Element Name,Type
+uuid,varchar(36)
+patent_id,varchar(20)
+text,mediumtext
+subclass,
+Data Element Name,Type
+id,varchar(20)
+subclass_current,
+Data Element Name,Type
+id,varchar(20)
+title,varchar(512)
+us_term_of_grant,
+Data Element Name,Type
+uuid,varchar(36)
+patent_id,varchar(20)
+lapse_of_patent,varchar(20)
+disclaimer_date,date
+term_disclaimer,varchar(128)
+term_grant,varchar(128)
+term_extension,int(10)
+usapplicationcitation,
+Data Element Name,Type
+uuid,varchar(36)
+patent_id,varchar(20)
+application_id,varchar(20)
+date,date
+name,varchar(128)
+kind,varchar(10)
+number,varchar(64)
+country,varchar(10)
+category,varchar(64)
+sequence,int(11)
+uspatentcitation,
+Data Element Name,Type
+uuid,varchar(36)
+patent_id,varchar(20)
+citation_id,varchar(20)
+date,date
+name,varchar(64)
+kind,varchar(10)
+country,varchar(10)
+category,varchar(64)
+sequence,int(11)
+uspc,
+Data Element Name,Type
+uuid,varchar(36)
+patent_id,varchar(20)
+mainclass_id,varchar(20)
+subclass_id,varchar(20)
+sequence,int(11)
+uspc_current,
+Data Element Name,Type
+uuid,varchar(36)
+patent_id,varchar(20)
+mainclass_id,varchar(20)
+subclass_id,varchar(20)
+sequence,int(11)
+usreldoc,
+Data Element Name,Type
+uuid,varchar(36)
+patent_id,varchar(20)
+doctype,varchar(64)
+relkind,varchar(64)
+reldocno,varchar(64)
+country,varchar(20)
+date,date
+status,varchar(20)
+sequence,int(11)
+kind,varchar(20)
+wipo,
+Data Element Name,Type
+patent_id,varchar(20)
+field_id,int(10)
+sequence,int(10)
+wipo_field,
+Data Element Name,Type
+id,int(10)
+sector_title,varchar(60)
+field_title,varchar(255)
