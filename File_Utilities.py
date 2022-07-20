@@ -21,6 +21,17 @@ class FileTools:
 
 
     @classmethod
+    def generate_csv_file_list(cls, path:str, file_list:list())->list:
+        '''
+        Generates a list of all csv files in a directory.
+        '''     
+        for root, dirs, files in os.walk(path):
+            for file in files:
+                if file.endswith(".csv"):
+                    file_list.append((os.path.join(root, file), file))
+        return file_list
+
+    @classmethod
     def check_directory(cls, directory_path:str)->bool:
         '''Check if directory exists, if not, create it'''        
         CHECK_FOLDER = os.path.exists(f'{directory_path}')    

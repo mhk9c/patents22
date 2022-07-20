@@ -18,7 +18,7 @@ source venv/bin/activate
 To install required packages, run the following command:
 
 ```
-    pip install --upgrade pip
-    pip install -r requirements.txt
+
+pip install -r requirements.txt
 
 ```
