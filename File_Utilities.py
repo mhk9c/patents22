@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 import cgi
+from numpy import concatenate
 import requests
 from pathlib import Path
 from urllib.parse import urlparse, unquote
@@ -9,6 +10,9 @@ from urllib.request import urlretrieve
 import cgi
 from requests.exceptions import RequestException
 import zipfile
+import pandas as pd
+import csv
+import pyarrow
 
 
 class FileTools:
@@ -18,7 +22,24 @@ class FileTools:
     def __init__(self): 
         pass
 
+    @classmethod
+    def save_df_as_csv(cls, df, filename):
+        df.to_csv(cls.get_full_file_path(f'{filename}'), index=False, quoting=csv.QUOTE_NONNUMERIC)
+        return filename
 
+    @classmethod
+    def load_df_from_csv(cls,filename):
+        return pd.read_csv(cls.get_full_file_path(filename))        
+
+    @classmethod
+    def save_df_as_parquet(cls, df, filename):
+        df.to_parquet(cls.get_full_file_path(filename), compression='gzip')
+        return filename
+
+    @classmethod
+    def load_df_from_parquet(cls, filename):
+        return pd.read_parquet(cls.get_full_file_path(filename))
+        
 
     @classmethod
     def generate_csv_file_list(cls, path:str, file_list:list())->list:
@@ -76,7 +97,7 @@ class FileTools:
 
 
     @classmethod
-    def get_file(cls, url, filename=None):
+    def get_file_from_url(cls, url, filename=None):
 
         try:
             with requests.get(url) as r:
@@ -96,7 +117,15 @@ class FileTools:
             print(e)
 
         return full_file_path
-    
+
+
+    @classmethod
+    def concatenate_dataframes(cls, df_list:list())->pd.DataFrame:
+        
+        '''
+        Concatenate a list of dataframes.
+        '''
+        return pd.concat(df_list, axis=0)
 
 
 

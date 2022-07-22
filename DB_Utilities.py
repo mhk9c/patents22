@@ -105,7 +105,10 @@ class DBTools:
                 connection.execute(sql_table.delete())
                 _df.to_sql(table_name, con=connection, if_exists='append', index=False)
         except Exception as e:
+            _df.to_sql(table_name, con=connection, if_exists='append', index=False)
             logging.error(e)
+
+    
 
 
 
