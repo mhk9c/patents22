@@ -1,10 +1,13 @@
 import os
+from turtle import st
 from dotenv import load_dotenv
 import sqlalchemy as db
 from datetime import datetime
 import pandas as pd
 import logging
 from sqlalchemy.engine.reflection import Inspector
+from sqlalchemy.sql import text
+import json
 
 
 
@@ -32,12 +35,26 @@ class DBTools:
 
 
     def get_table_columns(self, table_name):
-        # print(f"getting keys for {table_name}")
+        print(f"getting keys for {table_name}")
         meta_data = db.MetaData(bind=self.mysql_engine)
         db.MetaData.reflect(meta_data)
         table_meta = meta_data.tables[table_name]
         # print(table_meta.columns)        
-        return [x.name for x in list(table_meta.columns)]       
+        return [x.name for x in list(table_meta.columns)]   
+
+        # get column names for a view
+    def get_view_columns(self, view_name):
+        '''
+        Returns the columns in a view.
+        '''
+        try:
+            with self.mysql_engine.begin() as connection:
+                sql_table = db.Table(view_name, db.MetaData(connection), autoload=True)
+                query = db.select([sql_table])
+                df = pd.read_sql(query.compile(compile_kwargs={'literal_binds': True}), self.mysql_engine)
+                return df.columns
+        except Exception as e:
+            logging.error(e)
 
 
     def insert_df(self, _df:pd.DataFrame, table_name:str, Filename="")->None:  
@@ -65,6 +82,7 @@ class DBTools:
         except Exception as e:
             logging.error(e)
 
+    
 
     def get_df(self, table_name:str, where_clause:str="")->pd.DataFrame:
         '''
@@ -72,15 +90,76 @@ class DBTools:
         '''
         try:
             with self.mysql_engine.begin() as connection:
+                sql_table = db.Table(table_name, db.MetaData(connection), autoload=True)                
+                query = db.select([sql_table])
+                if where_clause:                    
+                    query = query.where(text(where_clause))
+                print(query)
+                df = pd.read_sql(query.compile(compile_kwargs={'literal_binds': True}), self.mysql_engine)
+                # df = df[self.get_table_columns(table_name)]
+                return df
+        except Exception as e:
+            print(e)
+            logging.error(e)   
+
+    # ONly get specific columns from a table
+    def get_df_columns(self, table_name:str, columns:list)->pd.DataFrame:
+        '''
+        Returns a data frame from the database.
+        '''
+        try:
+            with self.mysql_engine.begin() as connection:
+                sql_table = db.Table(table_name, db.MetaData(connection), autoload=True)
+                query = db.select([sql_table])
+                df = pd.read_sql(query.compile(compile_kwargs={'literal_binds': True}), self.mysql_engine)
+                return df[columns]
+        except Exception as e:
+            logging.error(e)
+
+    # get the number of rows in a table with filter
+    def get_row_count(self, table_name:str, where_clause:str="")->int:
+        '''
+        Returns the number of rows in a table.
+        '''
+        try:
+            with self.mysql_engine.begin() as connection:
                 sql_table = db.Table(table_name, db.MetaData(connection), autoload=True)
                 query = db.select([sql_table])
                 if where_clause:
-                    query = query.where(where_clause)
+                    query = query.where(text(where_clause))
                 df = pd.read_sql(query.compile(compile_kwargs={'literal_binds': True}), self.mysql_engine)
-                df = df[self.get_table_columns(table_name)]
-                return df
+                return df.shape[0]
         except Exception as e:
             logging.error(e)
+
+
+    def insert_location_lookup_cache(self, city:str, state:str, geocode_response:dict, census_lookup_result:dict, lat:str, long:str)->None:
+        '''
+        Inserts a row into the location lookup cache table. Only if the row doesn't already exist.
+        '''        
+        try:
+            with self.mysql_engine.begin() as connection:        
+                sql_table = db.Table('aws_lookup_cache', db.MetaData(connection), autoload=True)
+                connection.execute(sql_table.insert()
+                , city=city
+                , state=state
+                , lat=lat
+                , long=long
+                , census_lookup_result=json.dumps(census_lookup_result)
+                , geocode_response=json.dumps(geocode_response)
+                , census_city=census_lookup_result['city_BASENAME']
+                , census_state=census_lookup_result['state_BASENAME']
+                , census_state_ab=census_lookup_result['state_STUSAB']
+                , census_county=census_lookup_result['county_BASENAME']
+                , census_county_GEOID=census_lookup_result['county_GEOID']
+                )
+        except Exception as e:
+            print(f'Insert into location lookup cache failed : {e}')
+            logging.error(e)
+
+    
+
+
 
     def truncate_table(self, table_name:str)->None:
         '''
